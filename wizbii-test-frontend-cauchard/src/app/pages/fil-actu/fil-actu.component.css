@@ -1,0 +1,22 @@
+.mat-expansion-panel {
+  width: 100%;
+  margin: auto;
+}
+
+.mat-card {
+  display: block;
+  padding: 20px;
+  margin: 10px;
+  margin-left: 400px;
+  border-top: 0;
+  border-radius: 4px;
+  width: 50%;
+  position: center;
+}
+
+.mat-card-title {
+  text-align: center;
+}
+.mat-card .button {
+  float: right;
+}

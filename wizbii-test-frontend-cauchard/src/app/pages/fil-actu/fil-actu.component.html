@@ -1,0 +1,116 @@
+<!-- Entête de la personne connectée avec le bouton de déconnexion -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title *ngIf="isAuth && isAuth['profile']">
+      Hello {{ isAuth['profile']['name'] }}
+    </mat-card-title>
+    <button (click)="logout()">Logout</button>
+  </mat-card-header>
+</mat-card>
+<!-- Si il y a des actualités -->
+<div *ngIf="allItems">
+  <mat-card *ngFor="let eltActu of allItems">
+    <!-- Affichage d'une publication -->
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false"
+                         [expanded]="true" disabled>
+      <ng-container *ngIf="eltActu['type'] === 'publication'; else notPublication">
+        <!-- Entête de la publication -->
+        <mat-expansion-panel-header>
+          <!-- Titre de la publication -->
+          <mat-panel-title>
+            {{ eltActu['publication']['attachment_title'] }}
+          </mat-panel-title>
+          <!-- Nom de la personne qui a fait la publication et la date de publication -->
+          <mat-panel-title>
+            {{ eltActu['publication']['company']['name'] }} -
+            le {{ datePipe.transform(eltActu['date'], 'dd/MM/yyyy') }}
+          </mat-panel-title>
+          <!-- Affichage des tags de la publication -->
+          <mat-panel-description>
+            <ng-container *ngFor="let eltTag of eltActu['publication']['tags']">
+              #{{ eltTag['name'] }}
+            </ng-container>
+          </mat-panel-description>
+          <!-- Si il y a des liens associés -->
+          <ng-container *ngIf="eltActu['publication']['company']['links'].length > 0">
+            <button mat-button [mat-menu-trigger-for]="share">
+              <mat-icon>share</mat-icon>
+            </button>
+            <!-- Menu des liens -->
+            <mat-menu #share>
+              <button *ngFor="let eltShare of eltActu['publication']['company']['links']">
+                <ng-container [ngSwitch]="eltShare['type']">
+                  <ng-container *ngSwitchCase="'FACEBOOK'">
+                    <mat-icon matTooltip="Facebook">facebook</mat-icon>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'TWITTER'">
+                    <img src="../../../assets/twitter_icon.png" width="20" height="25" alt="A 20x25 image"
+                         matTooltip="Twitter">
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'INSTAGRAM'">
+                    <img src="../../../assets/pinterest_icon.png" width="20" height="25" alt="A 20x25 image"
+                         matTooltip="Instagram">
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'PINTEREST'">
+                    <img src="assets/instagram_icon.png" width="20" height="25" alt="A 20x25 image"
+                         matTooltip="Pinterest">
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'AUTRE'">
+                    <mat-icon matTooltip="Autre">insights</mat-icon>
+                  </ng-container>
+                </ng-container>
+              </button>
+            </mat-menu>
+          </ng-container>
+        </mat-expansion-panel-header>
+        <!-- Affichage du contenu de la publication -->
+        <div>
+          {{ eltActu['publication']['content'] }}
+        </div>
+        <ng-container>
+          <div>
+            <!-- Formulaire d'ajout d'un commentaire -->
+            <form #addCom="ngForm"
+                  (ngSubmit)="addCommentaire(addCom, eltActu['id'])">
+              <mat-form-field>
+              <textarea matInput
+                        id="com"
+                        placeholder="Ajouter un commentaire"
+                        name="commentaire"
+                        ngModel
+              ></textarea>
+              </mat-form-field>
+              <button type="submit"
+                      mat-raised-button
+                      color="primary"
+                      [disabled]="addCom.value['com'] === ''">
+                Envoyer
+              </button>
+            </form>
+          </div>
+          <!-- Si il y a des commentaires associés à la publication -->
+          <div *ngIf="publicationCommentaire(eltActu['id'])">
+            <ng-container *ngFor="let com of commentaires">
+              <!-- Affichages des commentaires de la publication -->
+              <mat-card *ngIf="com['id'] === eltActu['id']">
+                <!-- Personne qui a fait le commentaire -->
+                <mat-card-title>
+                  {{ isAuth['profile']['name'] + ' a répondu' }}
+                </mat-card-title>
+                <!-- Commentaire qui a été saisi -->
+                <mat-card-content>
+                  {{ com['commentaire'] }}
+                </mat-card-content>
+              </mat-card>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
+      <!-- Si la publication est une pub ou autre -->
+      <ng-template #notPublication>
+        {{ eltActu['id'] }}
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-card>
+</div>

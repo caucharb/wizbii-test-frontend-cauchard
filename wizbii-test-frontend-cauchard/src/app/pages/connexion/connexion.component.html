@@ -1,0 +1,33 @@
+<section class="connexion-form">
+
+  <div class="login-box">
+    <p>Connectez-vous pour accéder à votre fil d'actualités.</p>
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" #connexionF="ngForm"
+      (ngSubmit)="onSubmit(connexionF)">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Votre Identifiant</mat-label>
+        <input type="text" matInput placeholder="Identifiant" ngModel name="identifiant" autocomplete="username"
+          required #identifiantInput="ngModel">
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error>Ce champs ne doit pas être vide</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Votre mot de passe</mat-label>
+        <input [type]="hide ? 'password' : 'text'" matInput placeholder="Mot de passe" ngModel name="password"
+          autocomplete="current-password" required #passwordInput="ngModel">
+        <mat-icon matSuffix (click)="hide = !hide" title="Afficher le mot de passe">
+          {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error>Votre mot de passe est incorrect</mat-error>
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button color="primary">Se connecter</button>
+
+      <div *ngIf="messageErreur" ngClass="alert-danger">
+        {{ messageErreur }}
+      </div>
+    </form>
+  </div>
+
+</section>

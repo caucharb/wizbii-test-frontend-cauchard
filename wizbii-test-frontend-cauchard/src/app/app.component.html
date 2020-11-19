@@ -1,0 +1,7 @@
+<div *ngIf="isAuth; then filactu else connexion"></div>
+<ng-template #connexion>
+    <app-connexion></app-connexion>
+</ng-template>
+<ng-template #filactu>
+    <app-fil-actu></app-fil-actu>
+</ng-template>

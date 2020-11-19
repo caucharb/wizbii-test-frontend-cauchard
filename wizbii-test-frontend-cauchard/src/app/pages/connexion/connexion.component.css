@@ -1,0 +1,31 @@
+.connexion-form {
+  padding: 10vh;
+}
+
+.login-box,
+mat-form-field {
+  width: 400px;
+  margin: auto;
+  color: #666;
+}
+
+.login-box {
+  background: #fff;
+  padding: 20px;
+  border-top: 0;
+  border-radius: 4px;
+}
+
+.login-box p {
+  text-align: center;
+}
+
+.alert-danger {
+  padding: 20px;
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 3px;
+  background-color: 	#B22222; /* FireBrick */
+}
