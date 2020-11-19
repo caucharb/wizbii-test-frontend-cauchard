@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FilActuService } from '../../Services/fil-actu.service';
-import { AuthService } from '../../Services/auth.service';
+import { FilActuService } from '../../services/fil-actu.service';
+import { AuthService } from '../../services/auth.service';
 import { DatePipe } from '@angular/common';
 import { NgForm } from '@angular/forms';
 

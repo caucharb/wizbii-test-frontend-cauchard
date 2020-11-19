@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConnexionComponent } from './connexion.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from '../../Services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { AppRoutingModule } from '../../app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material.module';

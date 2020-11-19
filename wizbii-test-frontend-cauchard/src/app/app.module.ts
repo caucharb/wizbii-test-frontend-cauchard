@@ -14,8 +14,8 @@ import { ConnexionComponent } from './pages/connexion/connexion.component';
 import { FilActuComponent } from './pages/fil-actu/fil-actu.component';
 
 // Services
-import { AuthService } from './Services/auth.service';
-import { FilActuService } from './Services/fil-actu.service';
+import { AuthService } from './services/auth.service';
+import { FilActuService } from './services/fil-actu.service';
 import { DatePipe } from '@angular/common';
 
 
